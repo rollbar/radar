@@ -70,6 +70,15 @@ exports['given a status resource'] = {
     this.status.setStatus({ key: 123, value: 'offline' });
   },
 
+  'cat set status to an object': function(done) {
+    FakePersistence.persistHash = function(hash, key, value) {
+      assert.equal('123', key);
+      assert.equal(JSON.stringify({hello: 'world'}), value);
+      done();
+    };
+    this.status.setStatus({ key: 123, value: { hello: 'world'} });
+  },
+
   'sync causes a read and a subscription': function(done) {
     var status = this.status;
     FakePersistence.readHashAll = function(key, callback) {
