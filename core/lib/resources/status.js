@@ -18,10 +18,21 @@ Status.prototype = new Resource();
 Status.prototype.getStatus = function(client) {
   var self = this;
   Status.prototype._getStatus(this.name, function(replies) {
+    var value_hash = {};
+
+    //bring back any jsonized status values
+    Object.keys(replies).forEach(function(key) {
+      try{
+        value_hash[key] = JSON.parse(replies[key]);
+      }catch(err) {
+        value_hash[key] = replies[key];
+      }
+    });
+
     client.send(JSON.stringify({
       op: 'get',
       to: self.name,
-      value: replies
+      value: value_hash
     }));
   });
 };

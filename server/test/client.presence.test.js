@@ -28,10 +28,10 @@ exports['presence: given a server and two connected clients'] = {
         done();
       }
     }
-    common.startRadar(8000, this, function(){
-      self.client = new Client().configure({ userId: 123, userType: 0, accountName: 'test', port: 8000, upgrade: false })
+    common.startRadar(9001, this, function(){
+      self.client = new Client().configure({ userId: 123, userType: 0, accountName: 'test', port: 9001, upgrade: false })
                     .on('ready', next).alloc('test');
-      self.client2 = new Client().configure({ userId: 222, userType: 0, accountName: 'test', port: 8000, upgrade: false })
+      self.client2 = new Client().configure({ userId: 222, userType: 0, accountName: 'test', port: 9001, upgrade: false })
                     .on('ready', next).alloc('test');
     });
     Persistence.delWildCard('*:/test/*', next);
